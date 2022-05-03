@@ -3,10 +3,13 @@
 #include "MyForm.h"
 #include <Windows.h>
 #include <cmath>
+#include <locale>
+#include <string>
+#include <iostream>
 
 using namespace System;
 using namespace System::IO;
-using namespace MillerProgrammer; // Название проекта
+using namespace MillerProgrammer;
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
@@ -74,30 +77,32 @@ inline System::Void MillerProgrammer::MyForm::Calc_Click(System::Object^ sender,
 	int MillD, BSpeed, WSpeed, LineNum, ClearSts;
 	float InD, ExD, OutD, ExtLen, TotLen, PazS, PazA, PazLen, EdgeA, EdgeLen, DeepSt, SideSt, BFeed, WFeed, NextX, NextY, NextZ, HoldLenght, TopZ;
 	bool PazType, EdgeType, PazForm;
-	HoldLenght = FLOAT::Parse(this->HolderLenght->Text-> Replace('.', ','));
-	TopZ = FLOAT::Parse(this->SafeZ->Text->Replace('.', ','));;
+	std::cout.imbue(std::locale(""));
+	char decPoint = std::use_facet< std::numpunct<char> >(std::cout.getloc()).decimal_point();
+	HoldLenght =(float)Convert::ToDouble(this->HolderLenght->Text->Replace('.', decPoint)->Replace(',', decPoint));
+	TopZ = (float)Convert::ToDouble(this->SafeZ->Text->Replace('.', decPoint)->Replace(',', decPoint));
 	const float BaseA = -90;
 	const float BaseC = 0;
 	const float FastFallGap = 0.5;
-	InD = FLOAT::Parse(this->InternalDiam->Text->Replace('.',','));
-	ExD = FLOAT::Parse(this->ExtermalDiam->Text->Replace('.', ','));
-	OutD = FLOAT::Parse(this->OutsideDiam->Text->Replace('.', ','));
-	ExtLen = FLOAT::Parse(this->ExternalLength->Text->Replace('.', ','));
-	TotLen = FLOAT::Parse(this->TotalLength->Text->Replace('.', ','));
+	InD = (float)Convert::ToDouble(this->InternalDiam->Text->Replace('.', decPoint)->Replace(',', decPoint));
+	ExD = (float)Convert::ToDouble(this->ExtermalDiam->Text->Replace('.', decPoint)->Replace(',', decPoint));
+	OutD = (float)Convert::ToDouble(this->OutsideDiam->Text->Replace('.', decPoint)->Replace(',', decPoint));
+	ExtLen = (float)Convert::ToDouble(this->ExternalLength->Text->Replace('.', decPoint)->Replace(',', decPoint));
+	TotLen = (float)Convert::ToDouble(this->TotalLength->Text->Replace('.', decPoint)->Replace(',', decPoint));
 	PazType = this->PazSelectorSize->Checked;
-	PazS = FLOAT::Parse(this->PazSize->Text->Replace('.', ','));
-	PazA = M_PI*FLOAT::Parse(this->PazAngle->Text->Replace('.', ','))/180;
-	PazLen = FLOAT::Parse(this->PazLenght->Text->Replace('.', ','));
+	PazS = (float)Convert::ToDouble(this->PazSize->Text->Replace('.', decPoint)->Replace(',', decPoint));
+	PazA = M_PI * (float)Convert::ToDouble(this->PazAngle->Text->Replace(',', decPoint)->Replace('.', decPoint)) / 180;
+	PazLen = (float)Convert::ToDouble(this->PazLenght->Text->Replace('.', decPoint)->Replace(',', decPoint));
 	EdgeType = this->EdgeSelectorAngle->Checked;
 	PazForm = this->PazParallel->Checked;
-	EdgeA = M_PI*FLOAT::Parse(this->EdgeAngle->Text->Replace('.', ','))/180;
-	EdgeLen = FLOAT::Parse(this->EdgeLenght->Text->Replace('.', ','));
+	EdgeA = M_PI* (float)Convert::ToDouble(this->EdgeAngle->Text->Replace('.', decPoint)->Replace(',', decPoint)) /180;
+	EdgeLen = (float)Convert::ToDouble(this->EdgeLenght->Text->Replace('.', decPoint)->Replace(',', decPoint));
 	MillD = Int32::Parse(this->Mill->Text);
-	DeepSt = FLOAT::Parse(this->DeepStep->Text->Replace('.', ','));
-	SideSt = FLOAT::Parse(this->SideStep->Text->Replace('.', ','));
-	BFeed = FLOAT::Parse(this->BlackFeed->Text->Replace('.', ','));
+	DeepSt = (float)Convert::ToDouble(this->DeepStep->Text->Replace('.', decPoint)->Replace(',', decPoint));
+	SideSt = (float)Convert::ToDouble(this->SideStep->Text->Replace('.', decPoint)->Replace(',', decPoint));
+	BFeed = (float)Convert::ToDouble(this->BlackFeed->Text->Replace('.', decPoint)->Replace(',', decPoint));
 	BSpeed = Int32::Parse(this->BlackSpeed->Text);
-	WFeed = FLOAT::Parse(this->WhiteFeed->Text->Replace('.', ','));
+	WFeed = (float)Convert::ToDouble(this->WhiteFeed->Text->Replace('.', decPoint)->Replace(',', decPoint));
 	WSpeed = Int32::Parse(this->WhiteSpeed->Text);
 	ClearSts = Int32::Parse(this->ClearanceDivider->Text);
 	
