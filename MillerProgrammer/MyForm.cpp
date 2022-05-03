@@ -9,13 +9,28 @@
 
 using namespace System;
 using namespace System::IO;
+using namespace System::Windows::Forms;
 using namespace MillerProgrammer;
+[System::STAThreadAttribute()]
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	Application::Run(gcnew MyForm);
 	return 0;
 }
+
+inline System::Void MillerProgrammer::MyForm::Save_New_Click(System::Object^ sender, System::EventArgs^ e) {
+	saveFileDialog1->Filter = "Program Files|*.tap";   // чтобы можно было сохранить только с разрешением txt (если не нужно - убери)
+	saveFileDialog1->FilterIndex = 2;
+	saveFileDialog1->RestoreDirectory = true;
+	if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK) //проверка, если закрыто по нажатию кнопки ќ 
+	this->FileName->Text = saveFileDialog1->FileName;
+	StreamWriter^ sw = gcnew StreamWriter(this->FileName->Text);
+
+	sw->Write(this->CodeBox->Text);
+	sw->Close();
+}
+
 inline System::Void MillerProgrammer::MyForm::Save_Click(System::Object^ sender, System::EventArgs^ e) {
 	
 	StreamWriter^ sw = gcnew StreamWriter(this->FileName->Text + ".tap");

@@ -109,6 +109,10 @@ namespace MillerProgrammer {
 	private: System::Windows::Forms::Label^ label10;
 	private: System::Windows::Forms::TextBox^ ClearanceDivider;
 	private: System::Windows::Forms::Label^ label11;
+	private: System::Windows::Forms::SaveFileDialog^ saveFileDialog1;
+	private: System::Windows::Forms::Button^ Save_New;
+
+
 
 
 
@@ -153,6 +157,8 @@ namespace MillerProgrammer {
 			this->EdgeSelectorLenght = (gcnew System::Windows::Forms::RadioButton());
 			this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
 			this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
+			this->ClearanceDivider = (gcnew System::Windows::Forms::TextBox());
+			this->label11 = (gcnew System::Windows::Forms::Label());
 			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->PazParallel = (gcnew System::Windows::Forms::RadioButton());
 			this->PazAngular = (gcnew System::Windows::Forms::RadioButton());
@@ -182,8 +188,8 @@ namespace MillerProgrammer {
 			this->CalcSelectrorBottom = (gcnew System::Windows::Forms::RadioButton());
 			this->CalcSelectrorTop = (gcnew System::Windows::Forms::RadioButton());
 			this->label10 = (gcnew System::Windows::Forms::Label());
-			this->ClearanceDivider = (gcnew System::Windows::Forms::TextBox());
-			this->label11 = (gcnew System::Windows::Forms::Label());
+			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
+			this->Save_New = (gcnew System::Windows::Forms::Button());
 			this->groupBox1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
 			this->groupBox3->SuspendLayout();
@@ -471,6 +477,23 @@ namespace MillerProgrammer {
 			this->groupBox4->TabIndex = 24;
 			this->groupBox4->TabStop = false;
 			// 
+			// ClearanceDivider
+			// 
+			this->ClearanceDivider->Location = System::Drawing::Point(115, 30);
+			this->ClearanceDivider->Name = L"ClearanceDivider";
+			this->ClearanceDivider->Size = System::Drawing::Size(100, 20);
+			this->ClearanceDivider->TabIndex = 25;
+			this->ClearanceDivider->Text = L"3";
+			// 
+			// label11
+			// 
+			this->label11->AutoSize = true;
+			this->label11->Location = System::Drawing::Point(114, 13);
+			this->label11->Name = L"label11";
+			this->label11->Size = System::Drawing::Size(101, 13);
+			this->label11->TabIndex = 24;
+			this->label11->Text = L"Делитель чистоты";
+			// 
 			// label9
 			// 
 			this->label9->AutoSize = true;
@@ -690,25 +713,25 @@ namespace MillerProgrammer {
 			// 
 			// FileName
 			// 
-			this->FileName->Location = System::Drawing::Point(569, 324);
+			this->FileName->Location = System::Drawing::Point(485, 324);
 			this->FileName->Name = L"FileName";
-			this->FileName->Size = System::Drawing::Size(100, 20);
+			this->FileName->Size = System::Drawing::Size(252, 20);
 			this->FileName->TabIndex = 27;
 			// 
 			// Save
 			// 
-			this->Save->Location = System::Drawing::Point(594, 350);
+			this->Save->Location = System::Drawing::Point(651, 350);
 			this->Save->Name = L"Save";
-			this->Save->Size = System::Drawing::Size(75, 23);
+			this->Save->Size = System::Drawing::Size(86, 23);
 			this->Save->TabIndex = 28;
-			this->Save->Text = L"Сохранить";
+			this->Save->Text = L"Переписать";
 			this->Save->UseVisualStyleBackColor = true;
 			this->Save->Click += gcnew System::EventHandler(this, &MyForm::Save_Click);
 			// 
 			// label8
 			// 
 			this->label8->AutoSize = true;
-			this->label8->Location = System::Drawing::Point(564, 303);
+			this->label8->Location = System::Drawing::Point(485, 308);
 			this->label8->Name = L"label8";
 			this->label8->Size = System::Drawing::Size(89, 13);
 			this->label8->TabIndex = 29;
@@ -759,28 +782,22 @@ namespace MillerProgrammer {
 			this->label10->TabIndex = 0;
 			this->label10->Text = L"Расчет угла створаот кромки:";
 			// 
-			// ClearanceDivider
+			// Save_New
 			// 
-			this->ClearanceDivider->Location = System::Drawing::Point(115, 30);
-			this->ClearanceDivider->Name = L"ClearanceDivider";
-			this->ClearanceDivider->Size = System::Drawing::Size(100, 20);
-			this->ClearanceDivider->TabIndex = 25;
-			this->ClearanceDivider->Text = L"3";
-			// 
-			// label11
-			// 
-			this->label11->AutoSize = true;
-			this->label11->Location = System::Drawing::Point(114, 13);
-			this->label11->Name = L"label11";
-			this->label11->Size = System::Drawing::Size(101, 13);
-			this->label11->TabIndex = 24;
-			this->label11->Text = L"Делитель чистоты";
+			this->Save_New->Location = System::Drawing::Point(559, 351);
+			this->Save_New->Name = L"Save_New";
+			this->Save_New->Size = System::Drawing::Size(86, 23);
+			this->Save_New->TabIndex = 31;
+			this->Save_New->Text = L"Сохранить";
+			this->Save_New->UseVisualStyleBackColor = true;
+			this->Save_New->Click += gcnew System::EventHandler(this, &MyForm::Save_New_Click);
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(749, 386);
+			this->Controls->Add(this->Save_New);
 			this->Controls->Add(this->groupBox5);
 			this->Controls->Add(this->label8);
 			this->Controls->Add(this->Save);
@@ -826,6 +843,7 @@ namespace MillerProgrammer {
 
 	private: System::Void Calc_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void Save_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Save_New_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void AddLine(int LN, System::String^ GCode);
 	private: System::Void AddLine(int LN, Char Coord1, float Coord1V);
 	private: System::Void AddLine(int LN, System::String^ GCode, Char Coord1, float Coord1V);
