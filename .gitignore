@@ -1,6 +1,7 @@
 # Debug & Release folders
 Debug/
 Release/
+.vs/
 
 # Prerequisites
 *.d
@@ -35,15 +36,11 @@ Release/
 *.out
 *.app
 
-
-
-
 # Logs
 *.log
 
 # Caches
 *.cache
-.vs/
 
 # Test files
 *.tap
