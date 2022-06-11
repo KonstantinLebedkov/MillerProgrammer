@@ -377,7 +377,7 @@ inline System::Void MillerProgrammer::MyForm::Calc_Click(System::Object^ sender,
 				//от исходной нижней точки имеем длину (или угол), получаем Х,У исходной верхней точки
 				//далее так же - гипотенула, старый и новый углы, новые координаты
 				float Y2o, Z2o, A2o, L2, Y2n, Z2n, A2n;
-				Y2o = Y1o + (OutD - InD)/2*tan(EdgeA);
+				Y2o = Y1o + (OutD - InD)/2/tan(EdgeA);
 				Z2o = OutD/2;
 				A2o = atan(Z2o / (-Y2o));
 				A2n = A2o + EdgeA;
